@@ -16,3 +16,4 @@ From me to you, my beloved, my *dear*.
 ## Reference
 - Encryption on VPN: https://sase.checkpoint.com/blog/network/encryption-standards-business-vpn
 - TUN/TAP Documentation: https://docs.kernel.org/6.5/networking/tuntap.html?utm_source=chatgpt.com
+- Understanding AES: https://medium.com/@pravallikayakkala123/understanding-aes-encryption-and-aes-gcm-mode-an-in-depth-exploration-using-java-e03be85a3faa
