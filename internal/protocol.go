@@ -76,7 +76,7 @@ func ValidatePacket(packet *Packet) error {
 	if len(packet.Nonce) != NonceSize {
 		return errors.New("invalid nonce size")
 	}
-	if len(packet.Ciphertext) < 16 {
+	if len(packet.Ciphertext) < 16 { // minimum buat ciphertext
 		return errors.New("ciphertext is too short")
 	}
 	return nil

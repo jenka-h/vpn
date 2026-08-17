@@ -15,10 +15,12 @@ import (
 
 const KeySize = 32
 
+// engine
 type Crypto struct {
 	aead cipher.AEAD
 }
 
+// baca dari file key kita
 func LoadKey(path string) ([]byte, error) {
 	data, err := os.ReadFile(path)
 	if err != nil {
@@ -45,11 +47,11 @@ func NewCrypto(key []byte) (*Crypto, error) {
 		return nil, errors.New("AES-256-GCM requires a 32-byte key")
 	}
 
-	block, err := aes.NewCipher(key)
+	block, err := aes.NewCipher(key) // membuat urutan AES dari key
 	if err != nil {
 		return nil, err
 	}
-	aead, err := cipher.NewGCM(block)
+	aead, err := cipher.NewGCM(block) // nambahin tag untuk autentikasi agar integritas data terjaga
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +61,7 @@ func NewCrypto(key []byte) (*Crypto, error) {
 
 func GenerateNonce(size int) ([]byte, error) {
 	nonce := make([]byte, size)
-	_, err := io.ReadFull(rand.Reader, nonce)
+	_, err := io.ReadFull(rand.Reader, nonce) // membaca dari random reader, nonce diisi dengan byte random
 	return nonce, err
 }
 
@@ -75,7 +77,7 @@ func (c *Crypto) Encrypt(
 	if err != nil {
 		return nil, nil, err
 	}
-	ciphertext = c.aead.Seal(nil, nonce, plaintext, aad)
+	ciphertext = c.aead.Seal(nil, nonce, plaintext, aad) // fungsi AES-GCM
 	return nonce, ciphertext, nil
 }
 

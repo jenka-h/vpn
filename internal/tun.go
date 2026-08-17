@@ -8,6 +8,7 @@ import (
 	"unsafe"
 )
 
+// linux constant, pastikan kalau program dijalankan di wsl atau linux env
 const (
 	cloneDevice = "/dev/net/tun"
 	iffTUN      = 0x0001
@@ -70,7 +71,6 @@ func configureTUN(name string, cidr string, mtu int) error {
 }
 
 // file descriptor
-
 func (t *TUN) ReadPacket(buf []byte) (int, error) {
 	return t.file.Read(buf)
 }

@@ -6,18 +6,20 @@ import (
 	"net"
 )
 
+// penyimpanna awal, sebenarnya ngga harus ada
 type Config struct {
 	TunName    string
 	TunIP      string
 	ListenAddr string
 	PeerAddr   string
 	KeyFile    string
-	MTU        int
+	MTU        int // make sure biar ga fragmented
 }
 
 func LoadConfig() (*Config, error) {
 	cfg := &Config{}
 
+	// simpan ke cfg langsungs
 	flag.StringVar(&cfg.TunName, "tun", "tun0", "TUN interface name")
 	flag.StringVar(&cfg.TunIP, "tun-ip", "", "TUN interface IP/CIDR, e.g. 10.10.0.1/24")
 	flag.StringVar(&cfg.ListenAddr, "listen", ":51820", "UDP listen address")
@@ -29,6 +31,7 @@ func LoadConfig() (*Config, error) {
 	return cfg, cfg.Validate()
 }
 
+// validate config
 func (c *Config) Validate() error {
 	if c.TunName == "" {
 		return errors.New("tun name is required")
